@@ -10,6 +10,9 @@ public class LineObjectData {
     private Object value;
 
     public static LineObjectData from(LineObject lineObject) {
+        if (lineObject == null) {
+            return null;
+        }
         LineObjectData lineObjectData = new LineObjectData();
         lineObjectData.setId(lineObject.getId());
         lineObjectData.setName(lineObject.getName());

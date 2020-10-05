@@ -4,7 +4,6 @@ import com.subd.model.Line;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Data
@@ -13,6 +12,9 @@ public class LineData {
     private List<LineObjectData> lineObjects;
 
     public static LineData from(Line line) {
+        if (line == null) {
+            return null;
+        }
         LineData lineData = new LineData();
         lineData.setId(line.getId());
         if (line.getLineObjects() != null) {

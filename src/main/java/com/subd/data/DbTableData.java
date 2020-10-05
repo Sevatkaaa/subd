@@ -14,6 +14,9 @@ public class DbTableData {
     private List<LineData> lines;
 
     public static DbTableData from(DbTable table) {
+        if (table == null) {
+            return null;
+        }
         DbTableData tableData = new DbTableData();
         tableData.setId(table.getId());
         tableData.setName(table.getName());

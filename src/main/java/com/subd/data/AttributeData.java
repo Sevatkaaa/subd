@@ -11,6 +11,9 @@ public class AttributeData {
     private Integer maxLength;
 
     public static AttributeData from(Attribute attribute) {
+        if (attribute == null) {
+            return null;
+        }
         AttributeData attributeData = new AttributeData();
         attributeData.setId(attribute.getId());
         attributeData.setName(attribute.getName());

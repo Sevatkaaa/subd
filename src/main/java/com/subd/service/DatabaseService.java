@@ -23,4 +23,12 @@ public class DatabaseService {
     public List<Database> getDatabases() {
         return databaseRepository.findAll();
     }
+
+    public Database getDatabase(Long id) {
+        return databaseRepository.findById(id).orElseThrow(() -> new RuntimeException("No database found"));
+    }
+
+    public void deleteDatabase(Long id) {
+        databaseRepository.deleteById(id);
+    }
 }

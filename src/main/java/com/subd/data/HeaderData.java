@@ -12,6 +12,9 @@ public class HeaderData {
     private List<AttributeData> attributes;
 
     public static HeaderData from(Header header) {
+        if (header == null) {
+            return null;
+        }
         HeaderData headerData = new HeaderData();
         headerData.setId(header.getId());
         if (header.getAttributes() != null) {

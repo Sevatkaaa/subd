@@ -1,13 +1,11 @@
 package com.subd.controller;
 
 import com.subd.data.DatabaseData;
+import com.subd.data.DbTableData;
 import com.subd.model.Database;
 import com.subd.service.DatabaseService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,4 +31,25 @@ public class DatabaseController {
         List<DatabaseData> databasesData = databases.stream().map(DatabaseData::from).collect(Collectors.toList());
         return ResponseEntity.ok(databasesData);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/databases/{id}")
+    public ResponseEntity<DatabaseData> getDatabase(@PathVariable Long id) {
+        Database database = databaseService.getDatabase(id);
+        DatabaseData databaseData = DatabaseData.from(database);
+        return ResponseEntity.ok(databaseData);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/databases/{id}")
+    public ResponseEntity<DatabaseData> deleteDatabase(@PathVariable Long id) {
+        databaseService.deleteDatabase(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/databases/{id}/tables")
+    public ResponseEntity<List<DbTableData>> getDatabaseTables(@PathVariable Long id) {
+        Database database = databaseService.getDatabase(id);
+        DatabaseData databaseData = DatabaseData.from(database);
+        return ResponseEntity.ok(databaseData.getTables());
+    }
+
 }
