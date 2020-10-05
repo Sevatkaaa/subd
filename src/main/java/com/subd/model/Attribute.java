@@ -19,6 +19,7 @@ public class Attribute {
     @JoinColumn(name = "header_id")
     private Header header;
     private String name;
-    private Class clazz;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     private Integer maxLength;
 }

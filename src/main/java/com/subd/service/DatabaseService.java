@@ -13,7 +13,6 @@ public class DatabaseService {
     @Resource
     private DatabaseRepository databaseRepository;
 
-
     public Database createDatabase(String name) {
         Database database = new Database();
         database.setName(name);

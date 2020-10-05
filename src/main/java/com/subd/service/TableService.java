@@ -3,6 +3,7 @@ package com.subd.service;
 import com.subd.dao.TableRepository;
 import com.subd.model.Database;
 import com.subd.model.DbTable;
+import com.subd.model.Header;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +31,7 @@ public class TableService {
         DbTable table = new DbTable();
         table.setDtbs(database);
         table.setName(name);
+        table.setHeader(new Header());
         return tableRepository.save(table);
     }
 }
