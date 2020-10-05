@@ -1,4 +1,4 @@
-package com.subd;
+package com.subd.model;
 
 import lombok.Data;
 
