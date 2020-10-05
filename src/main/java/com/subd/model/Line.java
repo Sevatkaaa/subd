@@ -2,9 +2,19 @@ package com.subd.model;
 
 import lombok.Data;
 
-import java.util.Map;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "line")
 @Data
 public class Line {
-    private Map<String, Object> lineObjects;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "tbl_id", nullable = false)
+    private DbTable tbl;
+    @OneToMany(mappedBy = "line")
+    private List<LineObject> lineObjects;
 }
