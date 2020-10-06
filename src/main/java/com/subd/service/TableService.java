@@ -34,4 +34,8 @@ public class TableService {
         table.setHeader(new Header());
         return tableRepository.save(table);
     }
+
+    public void deleteTable(Long tableId) {
+        tableRepository.deleteById(tableId);
+    }
 }
