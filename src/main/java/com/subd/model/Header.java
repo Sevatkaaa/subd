@@ -12,6 +12,6 @@ public class Header {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(mappedBy = "header")
+    @OneToMany(mappedBy = "header", cascade = CascadeType.REMOVE)
     private List<Attribute> attributes;
 }

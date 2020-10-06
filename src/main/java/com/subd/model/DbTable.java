@@ -19,6 +19,6 @@ public class DbTable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "header_id", unique = true)
     private Header header;
-    @OneToMany(mappedBy = "tbl")
+    @OneToMany(mappedBy = "tbl", cascade = CascadeType.REMOVE)
     private List<Line> lines;
 }

@@ -13,6 +13,6 @@ public class Database {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "dtbs")
+    @OneToMany(mappedBy = "dtbs", cascade = CascadeType.REMOVE)
     private List<DbTable> tables;
 }

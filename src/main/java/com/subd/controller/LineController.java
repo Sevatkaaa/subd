@@ -23,4 +23,10 @@ public class LineController {
         LineData lineData = LineData.from(line);
         return ResponseEntity.ok(lineData);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/line")
+    public ResponseEntity<LineData> deleteLine(@RequestParam Long lineId) {
+        lineService.deleteLine(lineId);
+        return ResponseEntity.ok().build();
+    }
 }

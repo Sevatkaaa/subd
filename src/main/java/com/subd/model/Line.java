@@ -15,6 +15,6 @@ public class Line {
     @ManyToOne
     @JoinColumn(name = "tbl_id", nullable = false)
     private DbTable tbl;
-    @OneToMany(mappedBy = "line")
+    @OneToMany(mappedBy = "line", cascade = CascadeType.REMOVE)
     private List<LineObject> lineObjects;
 }

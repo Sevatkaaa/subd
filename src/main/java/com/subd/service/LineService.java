@@ -41,6 +41,10 @@ public class LineService {
             lineObject.setValue(obj.get("value"));
             lineObjectRepository.save(lineObject);
         });
-        return line;
+        return lineRepository.findById(line.getId()).orElseThrow(() -> new RuntimeException("line not found"));
+    }
+
+    public void deleteLine(Long lineId) {
+        lineRepository.deleteById(lineId);
     }
 }
