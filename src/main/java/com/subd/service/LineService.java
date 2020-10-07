@@ -55,6 +55,8 @@ public class LineService {
         return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).collect(Collectors.toList());
     }
 
+
+    // need to be moved to another class like Validator to be reused in LineObjectService during data edit
     private void validateLine(List<Map<String, String>> data, Header header) {
         List<String> invalidLines = data.stream().filter(lineObject -> !isValid(lineObject, header)).map(obj -> obj.get("name")).collect(Collectors.toList());
         if (!invalidLines.isEmpty()) {
