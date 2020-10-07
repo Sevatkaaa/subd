@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -28,5 +29,19 @@ public class LineController {
     public ResponseEntity<LineData> deleteLine(@RequestParam Long lineId) {
         lineService.deleteLine(lineId);
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/linesByLineObjName")
+    public ResponseEntity<List<LineData>> getLinesByLineObjName(@RequestParam String lineObjName) {
+        List<Line> linesByLineObjectName = lineService.getLinesByLineObjectName(lineObjName);
+        List<LineData> lines = linesByLineObjectName.stream().map(LineData::from).collect(Collectors.toList());
+        return ResponseEntity.ok(lines);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/linesByLineObjValue")
+    public ResponseEntity<List<LineData>> getLinesByLineObjValue(@RequestParam String lineObjValue) {
+        List<Line> linesByLineObjectValue = lineService.getLinesByLineObjectValue(lineObjValue);
+        List<LineData> lines = linesByLineObjectValue.stream().map(LineData::from).collect(Collectors.toList());
+        return ResponseEntity.ok(lines);
     }
 }

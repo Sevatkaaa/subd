@@ -47,6 +47,14 @@ public class LineService {
         lineRepository.deleteById(lineId);
     }
 
+    public List<Line> getLinesByLineObjectName(String name) {
+        return lineObjectRepository.findByName(name).stream().map(LineObject::getLine).collect(Collectors.toList());
+    }
+
+    public List<Line> getLinesByLineObjectValue(String value) {
+        return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).collect(Collectors.toList());
+    }
+
     private void validateLine(List<Map<String, String>> data, Header header) {
         List<String> invalidLines = data.stream().filter(lineObject -> !isValid(lineObject, header)).map(obj -> obj.get("name")).collect(Collectors.toList());
         if (!invalidLines.isEmpty()) {
