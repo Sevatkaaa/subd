@@ -43,6 +43,18 @@ public class LineService {
         return lineRepository.findById(line.getId()).orElseThrow(() -> new RuntimeException("line not found"));
     }
 
+    public Line editLine(Long tableId, Long lineId, List<Map<String, String>> data) {
+        DbTable table = tableRepository.findById(tableId).orElseThrow(() -> new RuntimeException("table not found"));
+        validateLine(data, table.getHeader());
+        Line line = lineRepository.findById(lineId).orElseThrow(() -> new RuntimeException("line not found"));
+        data.stream().forEach(obj -> {
+            LineObject lineObject = line.getLineObjects().stream().filter(l -> l.getId().equals(Long.valueOf(obj.get("id")))).findFirst().orElseThrow(() -> new RuntimeException("line object not found"));
+            lineObject.setValue(obj.get("value"));
+            lineObjectRepository.save(lineObject);
+        });
+        return lineRepository.findById(line.getId()).orElseThrow(() -> new RuntimeException("line not found"));
+    }
+
     public void deleteLine(Long lineId) {
         lineRepository.deleteById(lineId);
     }
@@ -54,7 +66,6 @@ public class LineService {
     public List<Line> getLinesByLineObjectValue(String value) {
         return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).collect(Collectors.toList());
     }
-
 
     // need to be moved to another class like Validator to be reused in LineObjectService during data edit
     private void validateLine(List<Map<String, String>> data, Header header) {
