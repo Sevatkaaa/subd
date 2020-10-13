@@ -24,7 +24,16 @@ public class Line {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Line line = (Line) o;
-        return Objects.equals(lineObjects, line.lineObjects);
+        int size = lineObjects.size();
+        if (size != line.lineObjects.size()) {
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if (!lineObjects.get(i).equals(line.lineObjects.get(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
