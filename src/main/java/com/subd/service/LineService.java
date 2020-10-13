@@ -59,14 +59,6 @@ public class LineService {
         lineRepository.deleteById(lineId);
     }
 
-    public List<Line> getLinesByLineObjectName(String name) {
-        return lineObjectRepository.findByName(name).stream().map(LineObject::getLine).collect(Collectors.toList());
-    }
-
-    public List<Line> getLinesByLineObjectValue(String value) {
-        return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).collect(Collectors.toList());
-    }
-
     // need to be moved to another class like Validator to be reused in LineObjectService during data edit
     private void validateLine(List<Map<String, String>> data, Header header) {
         List<String> invalidLines = data.stream().filter(lineObject -> !isValid(lineObject, header)).map(obj -> obj.get("name")).collect(Collectors.toList());
@@ -99,19 +91,14 @@ public class LineService {
             } catch (Exception e) {
                 return false;
             }
-        } else if (type == Type.COMPLEX_INTEGER) {
-            String[] complex = value.split(" ");
-            try {
-                Integer.parseInt(complex[0]);
-                Integer.parseInt(complex[1]);
-            } catch (Exception e) {
+        } else if (type == Type.DOLLAR) {
+            char dollar = value.charAt(0);
+            if (dollar != '$') {
                 return false;
             }
-        } else if (type == Type.COMPLEX_REAL) {
-            String[] complex = value.split(" ");
+            value = value.substring(1);
             try {
-                Double.parseDouble(complex[0]);
-                Double.parseDouble(complex[1]);
+                Double.parseDouble(value);
             } catch (Exception e) {
                 return false;
             }

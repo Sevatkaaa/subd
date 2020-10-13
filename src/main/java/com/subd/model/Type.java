@@ -5,6 +5,5 @@ public enum Type {
     CHAR,
     INTEGER,
     REAL,
-    COMPLEX_INTEGER,
-    COMPLEX_REAL
+    DOLLAR
 }

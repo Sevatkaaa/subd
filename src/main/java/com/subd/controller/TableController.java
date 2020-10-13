@@ -44,4 +44,10 @@ public class TableController {
         tableService.deleteTable(tableId);
         return ResponseEntity.ok().build();
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/table/duplicates")
+    public ResponseEntity<DbTableData> deleteTableDuplicates(@RequestParam Long tableId) {
+        tableService.deleteTableDuplicates(tableId);
+        return ResponseEntity.ok().build();
+    }
 }
