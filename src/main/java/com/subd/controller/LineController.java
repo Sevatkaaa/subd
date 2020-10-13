@@ -48,8 +48,8 @@ public class LineController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/linesByLineObjValue")
-    public ResponseEntity<List<LineData>> getLinesByLineObjValue(@RequestParam String lineObjValue) {
-        List<Line> linesByLineObjectValue = lineService.getLinesByLineObjectValue(lineObjValue);
+    public ResponseEntity<List<LineData>> getLinesByLineObjValue(@RequestParam String lineObjValue, @RequestParam Long tableId) {
+        List<Line> linesByLineObjectValue = lineService.getLinesByLineObjectValue(lineObjValue, tableId);
         List<LineData> lines = linesByLineObjectValue.stream().map(LineData::from).collect(Collectors.toList());
         return ResponseEntity.ok(lines);
     }

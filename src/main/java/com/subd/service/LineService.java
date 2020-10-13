@@ -63,8 +63,8 @@ public class LineService {
         return lineObjectRepository.findByName(name).stream().map(LineObject::getLine).collect(Collectors.toList());
     }
 
-    public List<Line> getLinesByLineObjectValue(String value) {
-        return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).collect(Collectors.toList());
+    public List<Line> getLinesByLineObjectValue(String value, Long tableId) {
+        return lineObjectRepository.findByValue(value).stream().map(LineObject::getLine).filter(line -> line.getTbl().getId().equals(tableId)).collect(Collectors.toList());
     }
 
     // need to be moved to another class like Validator to be reused in LineObjectService during data edit
