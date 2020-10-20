@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
 public class LineController {
