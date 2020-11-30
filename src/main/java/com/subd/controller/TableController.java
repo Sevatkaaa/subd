@@ -1,13 +1,16 @@
 package com.subd.controller;
 
 import com.subd.data.DbTableData;
+import com.subd.data.LineData;
 import com.subd.model.DbTable;
+import com.subd.model.Line;
 import com.subd.service.TableService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -43,5 +46,18 @@ public class TableController {
     public ResponseEntity<DbTableData> deleteTable(@RequestParam Long tableId) {
         tableService.deleteTable(tableId);
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/intersect")
+    public ResponseEntity<List<LineData>> getIntersectOfTables(@RequestParam Long tableId1, @RequestParam Long tableId2) {
+        List<Line> lines1 = tableService.getTable(tableId1).getLines();
+        List<Line> lines2 = tableService.getTable(tableId2).getLines();
+        Set<Line> result = lines1.stream()
+                .distinct()
+                .filter(lines2::contains)
+                .collect(Collectors.toSet());
+        return ResponseEntity.ok(result.stream()
+                .map(LineData::from)
+                .collect(Collectors.toList()));
     }
 }

@@ -6,5 +6,6 @@ public enum Type {
     INTEGER,
     REAL,
     COMPLEX_INTEGER,
-    COMPLEX_REAL
+    COMPLEX_REAL,
+    $
 }

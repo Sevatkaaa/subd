@@ -30,6 +30,7 @@ public class LineService {
         Line line = new Line();
         line.setTbl(table);
         List<LineObject> lineObjects = new ArrayList<>();
+        List<LineObject> lineObjectsMock = new ArrayList<>();
         line.setLineObjects(lineObjects);
         lineRepository.save(line);
         data.stream().forEach(obj -> {
@@ -38,9 +39,11 @@ public class LineService {
             lineObject.setName(obj.get("name"));
             lineObject.setType(Type.valueOf(obj.get("type")));
             lineObject.setValue(obj.get("value"));
+            lineObjectsMock.add(lineObject);
             lineObjectRepository.save(lineObject);
         });
-        return lineRepository.findById(line.getId()).orElseThrow(() -> new RuntimeException("line not found"));
+        line.setLineObjects(lineObjectsMock);
+        return line;
     }
 
     public Line editLine(Long tableId, Long lineId, List<Map<String, String>> data) {
@@ -74,6 +77,7 @@ public class LineService {
             throw new RuntimeException("not valid data in attributes " + invalidLines);
         }
     }
+
 
     private boolean isValid(Map<String, String> lineObject, Header header) {
         String value = lineObject.get("value");
@@ -112,6 +116,15 @@ public class LineService {
             try {
                 Double.parseDouble(complex[0]);
                 Double.parseDouble(complex[1]);
+            } catch (Exception e) {
+                return false;
+            }
+        } else if (type == Type.$) {
+            try {
+                long longValue = Long.parseLong(value);
+                if (longValue > 10000000000000L) {
+                    return false;
+                }
             } catch (Exception e) {
                 return false;
             }
